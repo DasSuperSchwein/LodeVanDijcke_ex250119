@@ -1,0 +1,30 @@
+QUESTION 4
+
+select gene_name, (seq_region_end - seq_region_start) as l from gene order by l limit 1;
+
+answer: TRDD1, length = 7
+
+QUESTION 5
+
+select gene_name,count(transcript_id) from gene join transcript on gene.gene_id = transcript.gene_id group by gene_name order by count(transcript_id) desc limit 1;
+
+answer: U6, transcripts = 1329
+
+QUESTION 6
+
+1) 
+select chromosome, count(gene_name) from gene where description rlike 'cancer' group by chromosome order by count(gene_name) desc limit 1 offset 1;
+
+answer: chromosome 9, 5 cancer related genes
+
+2)
+select count(*) from gene join transcript on gene.gene_id = transcript.gene_id join exon_transcript on transcript.transcript_id = exon_transcript.transcript_id join exon on exon_transcript.exon_id = exon.exon_id where chromosome = 9; 
+
+answer: chromosome 9 has 45679 exons
+
+QUESTION 7:
+
+select count(*) from exon;
+select count(*) from exon_transcript;
+
+there is a difference because every exon can have multiple transcript variants!
