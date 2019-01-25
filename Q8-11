@@ -1,0 +1,24 @@
+QUESTION 8
+
+db.bioinf_mongo_examen.find({$or:[{"method_of_admission" : {$eq: "TABLET;BUCCAL"}},{"method_of_admission":{$eq:"SUBLINGUAL"}}]},{"drug":1})
+
+answer: 2 drugs
+
+QUESTION 9
+
+db.bioinf_mongo_examen.find({"percentage_of_side_effects":{$gt:8}}).count()
+
+
+answer: 399 medicines
+
+QUESTION 10
+
+db.bioinf_mongo_examen.aggregate([{$group: {_id:"$company",average:{$avg:"$percentage_of_side_effects"}}},{$match: {average: {$gt:10}}},{$sort:{average:-1}}])
+
+answer:Galderma Laboratories, Watson Pharmaceuticals, Durata Therapeutics
+
+
+QUESTION 11
+
+db.bioinf_mongo_examen.aggregate([{$group: {_id:"$company",count:{$count:"$drug"},percentup:{$max:"$percentage_of_side_effects"},percentdown:{$min:"$percentage_of_side_effects"}}},{$match: { count:{$gt:1}}}])
+
